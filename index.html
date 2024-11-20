@@ -11,17 +11,37 @@
     <button id="actionButton">Click Me</button>
   </div>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <script>
-    // Проверка доступности Telegram Web App API
-    if (Telegram.WebApp) {
-      // Развернуть приложение на весь экран
-      Telegram.WebApp.expand();
-      console.log('Telegram WebApp initialized successfully!');
+<script>
+    if (window.Telegram && Telegram.WebApp) {
+        Telegram.WebApp.expand();
+        Telegram.WebApp.MainButton.show(); //Crucial for the mini-app behavior.
+
+        Telegram.WebApp.MainButton.setParams({
+          text: 'Close', // Text on the main button
+          color: '#4285f4', // Example color
+        });
+      console.log('Telegram Web App initialized successfully!');
     } else {
-      console.log('Telegram WebApp is not available');
+      console.error('Telegram Web App API is not available.');
     }
-  </script>
-</body>
+  
+   if (window.Telegram?.WebApp){
+     const tg = window.Telegram.WebApp;
+     tg.ready();
+   }
+
+  // Handling button clicks. Important: Do not use await here.
+  const button = document.getElementById('actionButton');
+  button.addEventListener('click', () => {
+    alert('Button clicked!');
+  });
+
+
+   Telegram.WebApp.onEvent('close', () => {
+       console.log('Closing...');
+   });
+</script>
+
 <style>
 * {
   margin: 0;
@@ -33,7 +53,7 @@ html, body {
   height: 100%;
   width: 100%;
   font-family: Arial, sans-serif;
-  overflow: hidden; /* Убираем скролл */
+  overflow: hidden; /* Crucial to prevent scrollbars */
 }
 
 #app {
@@ -41,12 +61,13 @@ html, body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh; /* Полноэкранная высота */
-  width: 100vw; /* Полноэкранная ширина */
+  height: 100vh;
+  width: 100vw;
   background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
   color: white;
   text-align: center;
 }
+
 
 button {
   margin-top: 20px;
@@ -64,33 +85,7 @@ button:hover {
   background: #f0f0f0;
 }
 </style>
-
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-<script>
-  // Проверяем доступность Telegram Web App API
-  if (window.Telegram && Telegram.WebApp) {
-    // Разворачиваем приложение на весь экран
-    Telegram.WebApp.expand();
-    console.log('Telegram Web App is now running in fullscreen mode.');
-  } else {
-    console.error('Telegram Web App API is not available.');
-  }
-  if (window.Telegram?.WebApp) {
-  const tg = window.Telegram.WebApp;
-
-  // Уведомляем Telegram, что приложение готово
-  tg.ready();
-
-  // Активируем полноэкранный режим
-  tg.expand();
-
-  console.log("Telegram WebApp API initialized and expanded");
-}
-
-// Логика для кнопки
-const button = document.getElementById('actionButton');
-button.addEventListener('click', () => {
-  alert('Button clicked!');
-});
-</script>
+</body>
 </html>
+
+
