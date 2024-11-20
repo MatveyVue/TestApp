@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Telegram Web App</title>
+</head>
+<body>
+  <h1>Welcome to Fullscreen App</h1>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script>
+    // Проверка доступности Telegram Web App API
+    if (Telegram.WebApp) {
+      // Развернуть приложение на весь экран
+      Telegram.WebApp.expand();
+      console.log('Telegram WebApp initialized successfully!');
+    } else {
+      console.log('Telegram WebApp is not available');
+    }
+  </script>
+</body>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script>
+  // Проверяем доступность Telegram Web App API
+  if (window.Telegram && Telegram.WebApp) {
+    // Разворачиваем приложение на весь экран
+    Telegram.WebApp.expand();
+    console.log('Telegram Web App is now running in fullscreen mode.');
+  } else {
+    console.error('Telegram Web App API is not available.');
+  }
+</script>
+</html>
